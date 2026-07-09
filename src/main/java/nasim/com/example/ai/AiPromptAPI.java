@@ -1,4 +1,4 @@
-package nasim.com.example.AiCompetitor;
+package nasim.com.example.ai;
 
 import java.io.IOException;
 import java.net.URI;
@@ -11,21 +11,25 @@ public class AiPromptAPI {
 
     private final HttpClient httpClient = HttpClient.newHttpClient();
     private final String requestBody;
+    private final String baseUrl;
 
     public AiPromptAPI(String prompt) {
+        this.baseUrl = System.getenv().getOrDefault("AI_BASE_URL", "http://localhost:11434");
+        String model = System.getenv().getOrDefault("AI_MODEL", "qwen2.5:3b");
         this.requestBody = """
                 {
-                  "model": "llama3.2",
+                  "model": %s,
                   "prompt": %s,
                   "stream": false
                 }
-                """.formatted(toJsonString(prompt));
+                """.formatted(toJsonString(model),toJsonString(prompt));
+
     }
 
     public String callPrompt() {
         try {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create("http://ollama:11434/api/generate"))
+                    .uri(URI.create(baseUrl+"/api/generate"))
                     .timeout(Duration.ofSeconds(60))
                     .header("Content-Type", "application/json")
                     .POST(HttpRequest.BodyPublishers.ofString(requestBody))
@@ -37,8 +41,10 @@ public class AiPromptAPI {
             return extractResponse(response.body());
 
         } catch (IOException e) {
-            return "Could not connect to the AI model.";
+            e.printStackTrace();
+            return "Could not connect to the AI model: " + e.getMessage();
         } catch (InterruptedException e) {
+            e.printStackTrace();
             Thread.currentThread().interrupt();
             return "The AI request was interrupted.";
         }

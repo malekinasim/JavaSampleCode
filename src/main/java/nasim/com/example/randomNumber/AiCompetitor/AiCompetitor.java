@@ -1,4 +1,6 @@
-package nasim.com.example.AiCompetitor;
+package nasim.com.example.randomNumber.AiCompetitor;
+
+import nasim.com.example.ai.AiPromptAPI;
 
 public class AiCompetitor {
 

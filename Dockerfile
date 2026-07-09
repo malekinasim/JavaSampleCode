@@ -6,4 +6,4 @@ COPY src ./src
 
 RUN javac -d out $(find src -name "*.java")
 
-CMD ["java", "-cp", "out", "nasim.com.example.RandomNumber"]
+CMD ["java", "-cp", "out", "nasim.com.example.randomNumber.RandomNumber"]

@@ -1,6 +1,6 @@
-package nasim.com.example;
+package nasim.com.example.randomNumber;
 
-import nasim.com.example.AiCompetitor.AiCompetitor;
+import nasim.com.example.randomNumber.AiCompetitor.AiCompetitor;
 
 import java.util.ArrayList;
 import java.util.List;
