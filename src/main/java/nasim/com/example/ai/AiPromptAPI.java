@@ -42,10 +42,8 @@ public class AiPromptAPI {
 
 
         } catch (IOException e) {
-            e.printStackTrace();
             return "Could not connect to the AI model: " + e.getMessage();
         } catch (InterruptedException e) {
-            e.printStackTrace();
             Thread.currentThread().interrupt();
             return "The AI request was interrupted.";
         }
