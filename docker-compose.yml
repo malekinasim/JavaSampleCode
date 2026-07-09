@@ -1,0 +1,19 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama:/root/.ollama
+
+  guess-game:
+    build: .
+    container_name: guess-game
+    depends_on:
+      - ollama
+    stdin_open: true
+    tty: true
+
+volumes:
+  ollama:
