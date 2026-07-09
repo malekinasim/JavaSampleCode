@@ -40,6 +40,7 @@ public class AiPromptAPI {
 
             return extractResponse(response.body());
 
+
         } catch (IOException e) {
             e.printStackTrace();
             return "Could not connect to the AI model: " + e.getMessage();
